@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: ml-model-api-service
+  namespace: ml-model-api
+  labels:
+    app: ml-model-api
+spec:
+  type: LoadBalancer
+  selector:
+    app: ml-model-api
+  ports:
+  - name: http
+    protocol: TCP
+    port: 80
+    targetPort: 8080
+  sessionAffinity: None

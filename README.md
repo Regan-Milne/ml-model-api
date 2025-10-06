@@ -329,15 +329,39 @@ ml-model-api/
 - Port: 8080
 - Plan: Free tier
 
+### Kubernetes Deployment (Local)
+
+**Status:** ✅ Deployed to Docker Desktop Kubernetes
+
+```bash
+# Deploy to Kubernetes
+kubectl apply -f k8s/
+
+# Check deployment
+kubectl get all -n ml-model-api
+
+# Access API
+curl http://localhost/health
+curl -X POST http://localhost/predict \
+  -H "Content-Type: application/json" \
+  -d '{"sepal_length": 5.1, "sepal_width": 3.5, "petal_length": 1.4, "petal_width": 0.2}'
+```
+
+**Current Setup:**
+- 3 replicas for high availability
+- LoadBalancer service at `localhost:80`
+- Health checks with automatic restarts
+- Rolling updates for zero-downtime deployments
+
 ### Alternative Platforms
 
 This project can deploy to:
+- **Kubernetes** (Local: Docker Desktop ✅ | Cloud: GKE, EKS, AKS)
 - **AWS ECS/Fargate** (Docker native)
 - **Google Cloud Run** (Serverless containers)
 - **Azure Container Instances**
 - **Railway** (Similar to Render)
 - **Fly.io** (Edge deployment)
-- **Kubernetes** (GKE, EKS, AKS)
 
 ---
 
@@ -413,6 +437,9 @@ This project demonstrates:
 
 ## 🔮 Future Enhancements
 
+- [x] Deploy to Kubernetes (Docker Desktop) ✅
+- [ ] Deploy to cloud Kubernetes (GKE/EKS/AKS)
+- [ ] Add HorizontalPodAutoscaler for load-based scaling
 - [ ] Add comprehensive test suite (pytest)
 - [ ] Implement model versioning (A/B testing)
 - [ ] Add Prometheus metrics endpoint
@@ -423,7 +450,6 @@ This project demonstrates:
 - [ ] Add model retraining pipeline
 - [ ] Implement rate limiting
 - [ ] Add authentication (API keys)
-- [ ] Deploy to Kubernetes
 - [ ] Add model explainability (SHAP)
 
 ---
@@ -456,8 +482,8 @@ This project is open source and available under the MIT License.
 
 Part of the **MLOps Portfolio Series:**
 
-1. ✅ **ML Model API** (This project) - Basic deployment
-2. ⏳ **Kubernetes Deployment** - Scaling and orchestration
+1. ✅ **ML Model API** (This project) - Basic deployment + Kubernetes
+2. ⏳ **Cloud Kubernetes** - GKE/EKS deployment with autoscaling
 3. ⏳ **CI/CD Pipeline** - Automated testing and deployment
 4. ⏳ **Monitoring Dashboard** - Prometheus + Grafana
 

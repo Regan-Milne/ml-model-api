@@ -22,4 +22,3 @@ build/
 *.swp
 *.swo
 *~
-model/*.joblib
